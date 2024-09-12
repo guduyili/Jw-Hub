@@ -3,53 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css'%}">
-    <script src="{% static 'popper.min.js'%}"></script>
-    <script src="{% static 'bootstrap.min.js'%}"></script>
-    <title>{%block title%}{%endblock%} JwHub</title>
-    {%block head%}{% endblock %}  
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    
+    <title>{% block title %} JwHub{% endblock %}</title>
+    {% block head %}{% endblock %}
 </head>
 <body>
-  <header class="p-3 text-bg-light border-bottom  mb-3">
+  <header class="p-3 text-bg-light border-bottom mb-3">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <img src="{% static 'img/1.png'%}" alt="" width="60" height="40">
+          <img src="{% static 'img/1.png' %}" alt="" width="60" height="40">
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="http://127.0.0.1:8000" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="http://127.0.0.1:8000/blog/pub" class="nav-link px-2 text-secondary">Publish a blog</a></li>
+          <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-secondary">Publish a blog</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg" placeholder="Search..." aria-label="Search">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search'%}" method="GET">
+          <input type="search" name="q" class="form-control form-control-dark text-bg" placeholder="Search..." aria-label="Search">
         </form>
 
-          {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
           <div class="dropdown text-end">
             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="{% static 'img/user.jpg'%}" alt="mdo" width="32" height="32" class="rounded-circle">
+              <img src="{% static 'img/user.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="{%url 'author:logout'%}">Sign out</a></li>
+              <li><a class="dropdown-item" href="{% url 'author:logout' %}">Sign out</a></li>
             </ul>
           </div>
-          {%else%}
-
+        {% else %}
           <div class="text-end">
-            <a href="{%url 'author:login'%}" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="{%url 'author:register'%}" type="button" class="btn btn-primary">Sign-up</a>
+            <a href="{% url 'author:login' %}" type="button" class="btn btn-outline-primary me-2">Login</a>
+            <a href="{% url 'author:register' %}" type="button" class="btn btn-primary">Sign-up</a>
           </div>
-          {% endif %}
-
+        {% endif %}
       </div>
     </div>
   </header>
+  
   <main class="container bg-light p-3 rounded">
-    {%block main%}{%endblock%}
-    
+    {% block main %}{% endblock %}
   </main>
- 
 </body>
 </html>

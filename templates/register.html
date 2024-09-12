@@ -11,7 +11,7 @@
 <div style="max-width: 330px; " class="m-auto">
     <h1>Registered</h1>
    <form action="" method="POST">
-        {%csrf_token%}
+    {% csrf_token %}
     <div class="input-group flex-nowrap">
         <span class="input-group-text" id="addon-wrapping">@</span>
         <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="username">
